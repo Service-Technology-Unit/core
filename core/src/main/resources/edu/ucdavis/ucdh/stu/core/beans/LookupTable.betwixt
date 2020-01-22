@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<info primitiveTypes="element">
+    <element name='lookup:table'>
+        <attribute name='id' property='id'/>
+        <attribute name='context' property='context'/>
+        <attribute name='tableName' property='tableName'/>
+        <attribute name='xmlns:lookup' value='http://www.ucdmc.ucdavis.edu/lookup'/>
+        <attribute name='xmlns:xlink' value='http://www.w3.org/1999/xlink'/>
+        <element name='displayName' property='displayName'/>
+        <element name='description' property = 'description'/>
+        <element name='creationDate' property='creationDate'/>
+        <element name='createdBy' property='createdBy'/>
+        <element name='lastUpdate' property='lastUpdate'/>
+        <element name='lastUpdateBy' property='lastUpdateBy'/>
+        <element name='properties'>
+            <element property='properties' updater='addProperty'/>
+        </element>
+    </element>
+</info>

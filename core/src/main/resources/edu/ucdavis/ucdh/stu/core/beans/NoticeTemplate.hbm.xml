@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="edu.ucdavis.ucdh.stu.core.beans.NoticeTemplate" table="noticetemplate">
+        <id name="id" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+        <property name="context"/>
+        <property name="name"/>
+        <property name="description"/>
+        <property name="contentType"/>
+        <property name="defaultDeliveryMethod"/>
+        <property name="titleSubject"/>
+        <property name="body"/>
+        <property name="creationDate"/>
+        <property name="createdBy"/>
+        <property name="lastUpdate"/>
+        <property name="lastUpdateBy"/>
+    </class>
+
+</hibernate-mapping>

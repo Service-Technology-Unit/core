@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="core-test">
+
+	<skin>
+		<groupId>edu.ucdavis.ucdmc.is.appl</groupId>
+		<artifactId>ucdhs-skin</artifactId>
+		<version>1.0</version>
+	</skin>
+
+	<version position="left" />
+	<publishDate position="right" format="MM-dd-yy"/>
+
+	<bannerLeft>
+		<name>UC Davis Health System</name>
+		<src></src>
+		<href>http://www.ucdhs.ucdavis.edu/</href>
+	</bannerLeft>
+
+	<bannerRight>
+		<name>Core</name>
+	</bannerRight>
+
+	<body>
+		$reports
+		<menu name="Quick Links">
+			<item name="UCDH Home" href="http://www.ucdmc.ucdavis.edu/" />
+			<item name="The Insider" href="http://intranet.ucdmc.ucdavis.edu/ucdhs/index.shtml/" />
+		</menu>
+		<links>
+			<item name="Apache" href="http://www.apache.org/" />
+			<item name="Maven 2" href="http://maven.apache.org/maven2/" />
+		</links>
+	</body>
+
+</project>

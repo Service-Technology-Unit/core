@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="edu.ucdavis.ucdh.stu.core.beans.LookupTable" table="lookuptable">
+        <id name="id" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+        <property name="context"/>
+        <property name="tableName"/>
+        <property name="displayName"/>
+        <property name="description"/>
+        <property name="creationDate"/>
+        <property name="createdBy"/>
+        <property name="lastUpdate"/>
+        <property name="lastUpdateBy"/>
+        <list name="properties" cascade="all-delete-orphan" lazy="false">
+            <key column="tableId"/>
+            <index column="sequence"/>
+            <one-to-many class="edu.ucdavis.ucdh.stu.core.beans.LookupTableProperty"/> 
+        </list>
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="edu.ucdavis.ucdh.stu.core.beans.NoticeAudit" table="noticeaudit">
+        <id name="id" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+        <property name="remoteHost"/>
+        <property name="remoteAddr"/>
+        <property name="remoteUser"/>
+        <property name="stackTrace"/>
+        <property name="addressing"/>
+        <property name="contentType"/>
+        <property name="deliveryMethod"/>
+        <property name="titleSubject"/>
+        <property name="body"/>
+        <property name="creationDate"/>
+        <property name="createdBy"/>
+        <property name="lastUpdate"/>
+        <property name="lastUpdateBy"/>
+    </class>
+
+</hibernate-mapping>

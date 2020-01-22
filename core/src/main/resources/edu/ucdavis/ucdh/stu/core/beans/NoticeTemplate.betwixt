@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<info primitiveTypes='element'>
+    <element name='notify:template'>
+        <attribute name='id' property='id'/>
+        <attribute name='context' property='context'/>
+        <attribute name='name' property='name'/>
+        <attribute name='xmlns:notify' value='http://www.restafarian.org/notify'/>
+        <attribute name='xmlns:xlink' value='http://www.w3.org/1999/xlink'/>
+        <element name='description' property='description'/>
+        <element name='contentType' property='contentType'/>
+        <element name='defaultDeliveryMethod' property='defaultDeliveryMethod'/>
+        <element name='titleSubject' property='titleSubject'/>
+        <element name='body' property='body'/>
+        <element name='creationDate' property='creationDate'/>
+        <element name='createdBy' property='createdBy'/>
+        <element name='lastUpdate' property='lastUpdate'/>
+        <element name='lastUpdateBy' property='lastUpdateBy'/>
+    </element>
+</info>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+    <context:property-placeholder location="classpath*:generate.properties"/>
+    
+    <!-- Enable @Transactional support -->
+    <tx:annotation-driven/>
+    
+    <!-- Enable @AspectJ support -->
+    <aop:aspectj-autoproxy/>
+    
+    <aop:config>
+        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..manager.*Manager.*(..))"/>
+    </aop:config>
+    
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="30"/>
+        <property name="maxIdle" value="10"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mappingResources">
+            <list>
+                <value>edu/ucdavis/ucdh/stu/core/beans/LookupTable.hbm.xml</value>
+                <value>edu/ucdavis/ucdh/stu/core/beans/LookupTableEntry.hbm.xml</value>
+                <value>edu/ucdavis/ucdh/stu/core/beans/LookupTableProperty.hbm.xml</value>
+                <value>edu/ucdavis/ucdh/stu/core/beans/NoticeTemplate.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="lookupTableDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.LookupTableDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="lookupTableEntryDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.LookupTableEntryDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="noticeTemplateDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.NoticeTemplateDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="lookupTableManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.LookupTableManagerImpl">
+        <property name="lookupTableDao" ref="lookupTableDao"/>
+    </bean>
+
+    <bean id="lookupTableEntryManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.LookupTableEntryManagerImpl">
+        <property name="lookupTableEntryDao" ref="lookupTableEntryDao"/>
+    </bean>
+
+    <bean id="noticeTemplateManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.NoticeTemplateManagerImpl">
+        <property name="noticeTemplateDao" ref="noticeTemplateDao"/>
+    </bean>
+
+    <bean id="lookupTableService" class="edu.ucdavis.ucdh.stu.core.service.impl.LookupTableService">
+        <property name="lookupTableManager" ref="lookupTableManager"/>
+        <property name="lookupTableEntryManager" ref="lookupTableEntryManager"/>
+        <property name="context" value="${gen.lookup.table.service.context}"/>
+    </bean>
+
+    <bean id="applicationDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${gen.appl.jdbc.driverClassName}"/>
+        <property name="url" value="${gen.appl.jdbc.url}"/>
+        <property name="username" value="${gen.appl.jdbc.username}"/>
+        <property name="password" value="${gen.appl.jdbc.password}"/>
+        <property name="maxActive" value="30"/>
+        <property name="maxIdle" value="10"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+    </bean>
+
+    <bean id="application" class="edu.ucdavis.ucdh.stu.core.utils.CodeGenerator">
+        <property name="lookupTableService"     ref="lookupTableService"/>
+        <property name="noticeTemplateManager"  ref="noticeTemplateManager"/>
+        <property name="dataSource"             ref="applicationDataSource"/>
+        <property name="objectName"             value="${gen.object.name}"/>
+        <property name="tableName"              value="${gen.table.name}"/>
+        <property name="targetDirectory"        value="${gen.target.directory}"/>
+        <property name="packageRoot"            value="${gen.package.root}"/>
+        <property name="defaultTemplateContext" value="${gen.default.template.context}"/>
+        <property name="sql2javaRefTableName"   value="${gen.sql.to.java.lookup}"/>
+        <property name="javaTypeRefTableName"   value="${gen.java.type.lookup}"/>
+        <property name="componentRefTableName"  value="${gen.component.lookup}"/>
+    </bean>
+
+</beans>

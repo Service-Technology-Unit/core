@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<info primitiveTypes="element">
+    <element name='identity:user'>
+        <attribute name='id' property='id'/>
+        <attribute name='xmlns:identity' value='http://www.ucdmc.ucdavis.edu/identity'/>
+        <attribute name='xmlns:xlink' value='http://www.w3.org/1999/xlink'/>
+        <attribute name='xlink:href' property='uri'/>
+        <element name='name' property='name'/>
+        <element name='email' property='email'/>
+    </element>
+</info>

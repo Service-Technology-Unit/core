@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="edu.ucdavis.ucdh.stu.core.beans.LookupTableEntry" table="lookuptableentry">
+        <id name="id" unsaved-value="-1">
+            <generator class="native"/>
+        </id>
+        <property name="context"/>
+        <property name="tableName"/>
+        <property name="entryId"/>
+        <property name="description"/>
+        <property name="property00"/>
+        <property name="property01"/>
+        <property name="property02"/>
+        <property name="property03"/>
+        <property name="property04"/>
+        <property name="property05"/>
+        <property name="property06"/>
+        <property name="property07"/>
+        <property name="property08"/>
+        <property name="property09"/>
+        <property name="property10"/>
+        <property name="property11"/>
+        <property name="property12"/>
+        <property name="property13"/>
+        <property name="property14"/>
+        <property name="property15"/>
+        <property name="property16"/>
+        <property name="property17"/>
+        <property name="property18"/>
+        <property name="property19"/>
+        <property name="creationDate"/>
+        <property name="createdBy"/>
+        <property name="lastUpdate"/>
+        <property name="lastUpdateBy"/>
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+    <context:property-placeholder location="classpath*:jdbc.properties,classpath*:local-server.properties"/>
+    <context:component-scan base-package="edu.ucdavis.ucdh.stu.core.resources"/>
+    
+    <!-- Enable @Transactional support -->
+    <tx:annotation-driven/>
+    
+    <!-- Enable @AspectJ support -->
+    <aop:aspectj-autoproxy/>
+    
+    <aop:config>
+        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..manager.*Manager.*(..))"/>
+    </aop:config>
+    
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <bean id="configPropertyManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.ConfigPropertyManagerImpl">
+        <property name="configPropertyDao" ref="configPropertyDao"/>
+    </bean>
+
+    <bean id="lookupTableManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.LookupTableManagerImpl">
+        <property name="lookupTableDao" ref="lookupTableDao"/>
+    </bean>
+
+    <bean id="lookupTableEntryManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.LookupTableEntryManagerImpl">
+        <property name="lookupTableEntryDao" ref="lookupTableEntryDao"/>
+    </bean>
+
+    <bean id="noticeTemplateManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.NoticeTemplateManagerImpl">
+        <property name="noticeTemplateDao" ref="noticeTemplateDao"/>
+    </bean>
+
+    <bean id="noticeAuditManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.NoticeAuditManagerImpl">
+        <property name="noticeAuditDao" ref="noticeAuditDao"/>
+    </bean>
+
+    <bean id="userManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.UserManagerImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+
+    <bean id="emailCourier" class="edu.ucdavis.ucdh.stu.core.service.impl.EmailCourier">
+        <property name="smtpHostName" value="localhost"/>
+        <property name="smtpPort" value="25"/>
+        <property name="defaultFromAddress" value="no-reply@restafarian.org"/>
+    </bean>
+
+    <bean id="messageCourierFactory" class="edu.ucdavis.ucdh.stu.core.service.impl.MessageCourierFactoryImpl">
+        <property name="messageCourierMap">
+            <map>
+                <entry>
+                    <key>
+                        <value>email</value>
+                    </key>
+                    <ref bean="emailCourier" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="deliveryService" class="edu.ucdavis.ucdh.stu.core.service.impl.DeliveryServiceImpl">
+        <property name="messageCourierFactory" ref="messageCourierFactory"/>
+    </bean>
+
+    <bean id="notifier" class="edu.ucdavis.ucdh.stu.core.service.impl.NotifierImpl">
+        <property name="noticeTemplateManager" ref="noticeTemplateManager"/>
+        <property name="noticeAuditManager" ref="noticeAuditManager"/>
+        <property name="deliveryService" ref="deliveryService"/>
+        <property name="auditNotifications" value="true"/>
+        <property name="defaultTemplateContext" value="global"/>
+    </bean>
+
+</beans>

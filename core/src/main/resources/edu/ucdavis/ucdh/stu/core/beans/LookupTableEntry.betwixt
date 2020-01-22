@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<info primitiveTypes="element">
+    <element name='entry'>
+        <attribute name='context' property='context'/>
+        <attribute name='tableName' property='tableName'/>
+        <attribute name='entryId' property='entryId'/>
+        <element name='description' property = 'description'/>
+        <element name='property00' property = 'property00'/>
+        <element name='property01' property = 'property01'/>
+        <element name='property02' property = 'property02'/>
+        <element name='property03' property = 'property03'/>
+        <element name='property04' property = 'property04'/>
+        <element name='property05' property = 'property05'/>
+        <element name='property06' property = 'property06'/>
+        <element name='property07' property = 'property07'/>
+        <element name='property08' property = 'property08'/>
+        <element name='property09' property = 'property09'/>
+        <element name='property10' property = 'property10'/>
+        <element name='property11' property = 'property11'/>
+        <element name='property12' property = 'property12'/>
+        <element name='property13' property = 'property13'/>
+        <element name='property14' property = 'property14'/>
+        <element name='property15' property = 'property15'/>
+        <element name='property16' property = 'property16'/>
+        <element name='property17' property = 'property17'/>
+        <element name='property18' property = 'property18'/>
+        <element name='property19' property = 'property19'/>
+        <element name='creationDate' property='creationDate'/>
+        <element name='createdBy' property='createdBy'/>
+        <element name='lastUpdate' property='lastUpdate'/>
+        <element name='lastUpdateBy' property='lastUpdateBy'/>
+    </element>
+</info>

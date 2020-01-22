@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+    <context:property-placeholder location="classpath*:batch.properties"/>
+
+    <bean id="batchJobService" class="edu.ucdavis.ucdh.stu.core.utils.BatchJobService">
+        <constructor-arg value="${batch.job.service.server.url}"></constructor-arg>
+    </bean>
+
+    <!-- Enable @Transactional support -->
+    <tx:annotation-driven/>
+    
+    <!-- Enable @AspectJ support -->
+    <aop:aspectj-autoproxy/>
+    
+    <aop:config>
+        <aop:advisor id="managerTx" advice-ref="txAdvice" pointcut="execution(* *..manager.*Manager.*(..))"/>
+    </aop:config>
+    
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+<!--  
+    <bean id="scheduleId" class="java.lang.String">
+        <constructor-arg value="${batch.job.schedule.id}"></constructor-arg>
+    </bean>
+ --> 
+    <bean id="appName" class="java.lang.String">
+        <constructor-arg value="${batch.job.appId}"></constructor-arg>
+    </bean>
+    
+    <bean id="jobName" class="java.lang.String">
+        <constructor-arg value="${batch.job.jobName}"></constructor-arg>
+    </bean>
+    
+    <bean id="schlName" class="java.lang.String">
+        <constructor-arg value="${batch.job.schlName}"></constructor-arg>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="30"/>
+        <property name="maxIdle" value="10"/>
+        <property name="maxWait" value="1000"/>
+        <property name="defaultAutoCommit" value="true"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="packagesToScan" value="edu.ucdavis.ucdh.stu.core.beans"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mappingResources">
+            <list>
+                <value>edu/ucdavis/ucdh/stu/core/beans/LookupTable.hbm.xml</value>
+                <value>edu/ucdavis/ucdh/stu/core/beans/LookupTableEntry.hbm.xml</value>
+                <value>edu/ucdavis/ucdh/stu/core/beans/LookupTableProperty.hbm.xml</value>
+                <value>edu/ucdavis/ucdh/stu/core/beans/NoticeAudit.hbm.xml</value>
+                <value>edu/ucdavis/ucdh/stu/core/beans/NoticeTemplate.hbm.xml</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="batchJobDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.BatchJobDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="batchJobScheduleDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.BatchJobScheduleDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="batchJobInstanceDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.BatchJobInstanceDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="lookupTableDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.LookupTableDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="lookupTableEntryDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.LookupTableEntryDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="noticeAuditDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.NoticeAuditDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="noticeTemplateDao" class="edu.ucdavis.ucdh.stu.core.dao.hibernate.NoticeTemplateDaoHibernate">
+        <constructor-arg><ref bean="sessionFactory"/></constructor-arg>
+    </bean>
+
+    <bean id="batchJobManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.BatchJobManagerImpl">
+        <property name="batchJobDao" ref="batchJobDao"/>
+    </bean>
+
+    <bean id="batchJobScheduleManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.BatchJobScheduleManagerImpl">
+        <property name="batchJobDao" ref="batchJobDao"/>
+        <property name="batchJobScheduleDao" ref="batchJobScheduleDao"/>
+    </bean>
+
+    <bean id="batchJobInstanceManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.BatchJobInstanceManagerImpl">
+        <property name="batchJobInstanceDao" ref="batchJobInstanceDao"/>
+    </bean>
+
+    <bean id="lookupTableManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.LookupTableManagerImpl">
+        <property name="lookupTableDao" ref="lookupTableDao"/>
+    </bean>
+
+    <bean id="lookupTableEntryManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.LookupTableEntryManagerImpl">
+        <property name="lookupTableEntryDao" ref="lookupTableEntryDao"/>
+    </bean>
+
+    <bean id="noticeAuditManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.NoticeAuditManagerImpl">
+        <property name="noticeAuditDao" ref="noticeAuditDao"/>
+    </bean>
+
+    <bean id="noticeTemplateManager" class="edu.ucdavis.ucdh.stu.core.manager.impl.NoticeTemplateManagerImpl">
+        <property name="noticeTemplateDao" ref="noticeTemplateDao"/>
+    </bean>
+
+    <bean id="lookupTableService" class="edu.ucdavis.ucdh.stu.core.service.impl.LookupTableService">
+        <property name="lookupTableManager"      ref="lookupTableManager"/>
+        <property name="lookupTableEntryManager" ref="lookupTableEntryManager"/>
+        <property name="context"                 value="${batch.lookup.table.service.context}"/>
+    </bean>
+
+    <bean id="emailCourier" class="edu.ucdavis.ucdh.stu.core.service.impl.EmailCourier">
+        <property name="smtpHostName" value="${batch.smtp.host.name}"/>
+        <property name="smtpPort" value="${batch.smtp.host.port}"/>
+        <property name="defaultFromAddress" value="${batch.default.from.address}"/>
+    </bean>
+
+    <bean id="messageCourierFactory" class="edu.ucdavis.ucdh.stu.core.service.impl.MessageCourierFactoryImpl">
+        <property name="messageCourierMap">
+            <map>
+                <entry>
+                    <key>
+                        <value>email</value>
+                    </key>
+                    <ref bean="emailCourier" />
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="deliveryService" class="edu.ucdavis.ucdh.stu.core.service.impl.DeliveryServiceImpl">
+        <property name="messageCourierFactory" ref="messageCourierFactory"/>
+    </bean>
+
+    <bean id="notifier" class="edu.ucdavis.ucdh.stu.core.service.impl.NotifierImpl">
+        <property name="noticeTemplateManager" ref="noticeTemplateManager"/>
+        <property name="noticeAuditManager" ref="noticeAuditManager"/>
+        <property name="deliveryService" ref="deliveryService"/>
+        <property name="auditNotifications" value="true"/>
+        <property name="defaultTemplateContext" value="global"/>
+    </bean>
+
+    <bean id="application" class="edu.ucdavis.ucdh.stu.core.batch.job.PeriodicBatchJobReview">
+        <property name="batchJobInstanceManager" ref="batchJobInstanceManager"/>
+        <property name="notifier"                ref="notifier"/>
+        <property name="dataSource"              ref="dataSource"/>
+        <property name="alertTemplateId"         value="${batch.alert.template.id}"/>
+        <property name="alertRecipients"         value="${batch.alert.recipient.list}"/>
+    </bean>
+
+</beans>

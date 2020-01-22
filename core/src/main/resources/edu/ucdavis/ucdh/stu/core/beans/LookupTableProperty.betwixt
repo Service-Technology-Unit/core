@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<info primitiveTypes="element">
+    <element name='property'>
+        <attribute name='id' property='id'/>
+        <attribute name='tableId' property='tableId'/>
+        <attribute name='sequence' property='sequence'/>
+        <element name='name' property='name'/>
+        <element name='type' property='type'/>
+        <element name='size' property='size'/>
+        <element name='label' property='label'/>
+        <element name='colHeading' property='colHeading'/>
+        <element name='inputRequired' property='inputRequired'/>
+        <element name='displayOnList' property='displayOnList'/>
+        <element name='source' property='source'/>
+        <element name='notes' property='notes'/>
+        <element name='creationDate' property='creationDate'/>
+        <element name='createdBy' property='createdBy'/>
+        <element name='lastUpdate' property='lastUpdate'/>
+        <element name='lastUpdateBy' property='lastUpdateBy'/>
+    </element>
+</info>
