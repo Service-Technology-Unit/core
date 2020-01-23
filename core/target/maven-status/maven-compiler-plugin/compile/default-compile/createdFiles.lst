@@ -7,8 +7,8 @@ edu\ucdavis\ucdh\stu\core\servlets\impl\LookupTableEntryServlet.class
 edu\ucdavis\ucdh\stu\core\servlets\impl\LookupTableEntrySelectListServlet.class
 edu\ucdavis\ucdh\stu\core\resources\ConfigPropertyResource.class
 edu\ucdavis\ucdh\stu\core\servlets\SelectListServletBase.class
-edu\ucdavis\ucdh\stu\core\servlets\impl\LookupTableEntrySelectListJsServlet.class
 edu\ucdavis\ucdh\stu\core\manager\BatchJobStatisticManager.class
+edu\ucdavis\ucdh\stu\core\servlets\impl\LookupTableEntrySelectListJsServlet.class
 edu\ucdavis\ucdh\stu\core\resources\PageResource.class
 edu\ucdavis\ucdh\stu\core\servlets\JavascriptServletBase.class
 edu\ucdavis\ucdh\stu\core\service\impl\MessageCourierFactoryImpl.class
@@ -129,8 +129,8 @@ edu\ucdavis\ucdh\stu\core\service\impl\LookupTableService.class
 edu\ucdavis\ucdh\stu\core\dao\MediaDao.class
 edu\ucdavis\ucdh\stu\core\beans\NoticeTemplate.class
 edu\ucdavis\ucdh\stu\core\manager\LookupTableEntryManager.class
-edu\ucdavis\ucdh\stu\core\servlets\impl\LookupTableServlet.class
 edu\ucdavis\ucdh\stu\core\dao\PingDao.class
+edu\ucdavis\ucdh\stu\core\servlets\impl\LookupTableServlet.class
 edu\ucdavis\ucdh\stu\core\manager\impl\LookupTableManagerImpl.class
 edu\ucdavis\ucdh\stu\core\service\impl\DeliveryServiceImpl.class
 edu\ucdavis\ucdh\stu\core\manager\BatchJobEventManager.class
