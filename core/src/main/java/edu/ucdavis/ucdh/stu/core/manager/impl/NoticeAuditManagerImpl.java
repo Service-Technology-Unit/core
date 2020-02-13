@@ -54,7 +54,7 @@ public class NoticeAuditManagerImpl implements NoticeAuditManager {
 	 * @return the NoticeAudit with the specified id
 	 */
 	public NoticeAudit findById(int id) {
-		return dao.findById(new Integer(id));
+		return dao.findById(Integer.valueOf(id));
 	}
 
 	/**

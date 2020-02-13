@@ -64,7 +64,7 @@ public class NoticeTemplateManagerImpl implements NoticeTemplateManager {
 	 * @return the NoticeTemplate with the specified id
 	 */
 	public NoticeTemplate findById(int id) {
-		return dao.findById(new Integer(id));
+		return dao.findById(Integer.valueOf(id));
 	}
 
 	/**
