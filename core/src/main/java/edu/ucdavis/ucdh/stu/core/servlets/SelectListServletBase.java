@@ -197,14 +197,14 @@ public abstract class SelectListServletBase extends RestServletBase {
 			options = (List) results.get("options");
 			results.put("lastAccessed", rightNow);
 			Integer accessCount = (Integer) results.get("accessCount");
-			results.put("accessCount", new Integer(accessCount.intValue() + 1));
+			results.put("accessCount", Integer.valueOf(accessCount.intValue() + 1));
 		} else {
 			options = fetchOptions(req, startsWith, contains, orderBy);
 			if (options != null && options.size() > 0) {
 				Map results = new HashMap();
 				results.put("creationDate", rightNow);
 				results.put("lastAccessed", rightNow);
-				results.put("accessCount", new Integer(1));
+				results.put("accessCount", Integer.valueOf(1));
 				results.put("options", options);
 				queryCache.put(cacheKey, results);
 			}

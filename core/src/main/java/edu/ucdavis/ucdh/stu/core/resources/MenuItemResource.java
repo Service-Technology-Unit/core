@@ -143,12 +143,12 @@ public class MenuItemResource {
 	}
 
 	private Integer getNumericParameter(MultivaluedMap<String, String> params, String key) {
-		Integer value = new Integer(0);
+		Integer value = Integer.valueOf(0);
 
 		String string = params.getFirst(key);
 		try {
 			if (StringUtils.isNumeric(string)) {
-				value = new Integer(string);
+				value = Integer.valueOf(string);
 			}
 		} catch (NumberFormatException e) {
 			// no one cares

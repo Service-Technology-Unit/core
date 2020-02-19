@@ -1,18 +1,11 @@
 package edu.ucdavis.ucdh.stu.core.utils;
 
-import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -22,11 +15,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
-import org.apache.http.conn.ssl.SSLSocketFactory;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
@@ -236,34 +224,10 @@ public class BatchJobService {
 		if (log.isDebugEnabled()) {
 			log.debug("Posting to URL " + url);
 		}
-		HttpClient client = new DefaultHttpClient();
-		try {
-			SSLContext ctx = SSLContext.getInstance("TLS");
-			X509TrustManager tm = new X509TrustManager() {
-				public void checkClientTrusted(X509Certificate[] xcs, String string) throws CertificateException {
-				}
-				public void checkServerTrusted(X509Certificate[] xcs, String string) throws CertificateException {
-				}
-				public X509Certificate[] getAcceptedIssuers() {
-					return null;
-				}
-			};
-			ctx.init(null, new TrustManager[]{tm}, null);
-			SSLSocketFactory ssf = new SSLSocketFactory(ctx, SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-			ClientConnectionManager ccm = client.getConnectionManager();
-			SchemeRegistry sr = ccm.getSchemeRegistry();
-			sr.register(new Scheme("https", 443, ssf));
-			client = new DefaultHttpClient(ccm, client.getParams());
-		} catch (Exception e) {
-			log.error("Exception encountered: " + e.getClass().getName() + "; " + e.getMessage(), e);
-		}
 		HttpPost post = new HttpPost(url);
 		try {
+			HttpClient client = HttpClientProvider.getClient();
 			post.setEntity(new UrlEncodedFormEntity(parameters, "UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			log.error("Exception encountered: " + e.getClass().getName() + "; " + e.getMessage(), e);
-		}
-		try {
 			HttpResponse response = client.execute(post);
 			returnData.put("statusCode", response.getStatusLine().getStatusCode() + "");
 			returnData.put("responseBody", EntityUtils.toString(response.getEntity()));
