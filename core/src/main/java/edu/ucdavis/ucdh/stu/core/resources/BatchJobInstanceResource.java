@@ -45,12 +45,12 @@ public class BatchJobInstanceResource {
 
 	@GET
 	@Path("/{id}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public BatchJobInstance getBatchJobInstance(@PathParam("id") Integer id) throws NotFoundException {
 		BatchJobInstance batchJobInstance = batchJobInstanceManager.findById(id);
-		if (batchJobInstance == null) {
-			throw new NotFoundException("No such batchJobInstance.");
-		}
+//		if (batchJobInstance == null) {
+//			throw new NotFoundException("No such batchJobInstance.");
+//		}
 		if (log.isDebugEnabled()) {
 			log.debug("Returning batchJobInstance " + batchJobInstance.getId());
 		}
@@ -59,7 +59,7 @@ public class BatchJobInstanceResource {
 	
 	@GET
 	@Path("/")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public List<BatchJobInstance> getBatchJobInstance(@Context HttpServletRequest req,
 			@QueryParam("context") String context,
 			@QueryParam("name") String name,
@@ -100,7 +100,7 @@ public class BatchJobInstanceResource {
 	@POST
 	@Path("/create/{context}/{jobname}/{schedulename}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public BatchJobInstance createBatchJobInstance(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("jobname") String jobName, 
@@ -150,7 +150,7 @@ public class BatchJobInstanceResource {
 	@POST
 	@Path("/{id}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public BatchJobInstance updateBatchJobInstance(@Context HttpServletRequest req,
 			@PathParam("id") Integer id,
 			@FormParam("event") String event,
@@ -270,7 +270,7 @@ public class BatchJobInstanceResource {
 
 	@DELETE
 	@Path("/{id}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteBatchJobInstance(@PathParam("id") Integer id) throws NotFoundException {
 		BatchJobInstance batchJobInstance = batchJobInstanceManager.findById(id);
 		if (batchJobInstance == null) {

@@ -21,7 +21,7 @@ public abstract class RestServletBase extends ServletBase {
 	 * @throws IOException
 	 */
 	public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.setContentType("text/xml");
+		res.setContentType("application/xml");
 
 		String method = req.getMethod();
 		if ("get".equalsIgnoreCase(method)) {

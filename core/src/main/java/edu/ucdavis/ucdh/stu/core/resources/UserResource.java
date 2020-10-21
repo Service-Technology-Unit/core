@@ -32,7 +32,7 @@ public class UserResource {
 	
 	@GET
 	@Path("/")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public List<User> getUser(@PathParam("context") String context) throws NotFoundException {
 		List<User> users = userManager.findByContext(context);
 		if (users == null || users.size() == 0) {
@@ -46,7 +46,7 @@ public class UserResource {
 
 	@GET
 	@Path("/role/{role}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 		public List<User> getUserbyRole(@PathParam("context") String context, @PathParam("role") String role) throws NotFoundException {
 		User user = new User();
 		user.setContext(context);
@@ -93,7 +93,7 @@ public class UserResource {
 
 	@GET
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public User getUser(@PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		User user = userManager.findByContextAndName(context, name);
 		if (user == null) {
@@ -108,7 +108,7 @@ public class UserResource {
 	@POST
 	@Path("/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public User saveUser(@PathParam("context") String context,
 			@PathParam("name") String name,
 			@FormParam("lastName") String lastName,
@@ -146,7 +146,7 @@ public class UserResource {
 
 	@DELETE
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteUser(@PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		User user = userManager.findByContextAndName(context, name);
 		if (user == null) {

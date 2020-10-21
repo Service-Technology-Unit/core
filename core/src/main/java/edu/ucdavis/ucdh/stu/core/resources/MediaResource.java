@@ -33,42 +33,42 @@ public class MediaResource {
 
 	@GET
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{folder5}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media getMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("folder3") String folder3, @PathParam("folder4") String folder4, @PathParam("folder5") String folder5, @PathParam("name") String name) throws NotFoundException {
 		return fetchMedia(req, context, folder1 + "/" + folder2 + "/" + folder3 + "/" + folder4 + "/" + folder5, name);
 	}
 
 	@GET
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media getMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("folder3") String folder3, @PathParam("folder4") String folder4, @PathParam("name") String name) throws NotFoundException {
 		return fetchMedia(req, context, folder1 + "/" + folder2 + "/" + folder3 + "/" + folder4, name);
 	}
 
 	@GET
 	@Path("/{folder1}/{folder2}/{folder3}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media getMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("folder3") String folder3, @PathParam("name") String name) throws NotFoundException {
 		return fetchMedia(req, context, folder1 + "/" + folder2 + "/" + folder3, name);
 	}
 
 	@GET
 	@Path("/{folder1}/{folder2}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media getMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("name") String name) throws NotFoundException {
 		return fetchMedia(req, context, folder1 + "/" + folder2, name);
 	}
 
 	@GET
 	@Path("/{folder1}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media getMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("name") String name) throws NotFoundException {
 		return fetchMedia(req, context, folder1, name);
 	}
 
 	@GET
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media getMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		return fetchMedia(req, context, null, name);
 	}
@@ -86,7 +86,7 @@ public class MediaResource {
 
 	@GET
 	@Path("/")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public List<Media> getMedias(@Context HttpServletRequest req, @PathParam("context") String context) throws NotFoundException {
 		List<Media> medias = mediaManager.findByProperty("context", context);
 		if (medias == null || medias.isEmpty()) {
@@ -101,7 +101,7 @@ public class MediaResource {
 	@POST
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{folder5}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media saveMedia(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -119,7 +119,7 @@ public class MediaResource {
 	@POST
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media saveMedia(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -136,7 +136,7 @@ public class MediaResource {
 	@POST
 	@Path("/{folder1}/{folder2}/{folder3}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media saveMedia(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -152,7 +152,7 @@ public class MediaResource {
 	@POST
 	@Path("/{folder1}/{folder2}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media saveMedia(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -167,7 +167,7 @@ public class MediaResource {
 	@POST
 	@Path("/{folder1}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media saveMedia(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -181,7 +181,7 @@ public class MediaResource {
 	@POST
 	@Path("/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Media saveMedia(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("name") String name,
@@ -228,42 +228,42 @@ public class MediaResource {
 
 	@DELETE
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{folder5}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("folder3") String folder3, @PathParam("folder4") String folder4, @PathParam("folder5") String folder5, @PathParam("name") String name) throws NotFoundException {
 		return deleteMediaFile(req, context, folder1 + "/" + folder2 + "/" + folder3 + "/" + folder4 + "/" + folder5, name);
 	}
 
 	@DELETE
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("folder3") String folder3, @PathParam("folder4") String folder4, @PathParam("name") String name) throws NotFoundException {
 		return deleteMediaFile(req, context, folder1 + "/" + folder2 + "/" + folder3 + "/" + folder4, name);
 	}
 
 	@DELETE
 	@Path("/{folder1}/{folder2}/{folder3}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("folder3") String folder3, @PathParam("name") String name) throws NotFoundException {
 		return deleteMediaFile(req, context, folder1 + "/" + folder2 + "/" + folder3, name);
 	}
 
 	@DELETE
 	@Path("/{folder1}/{folder2}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("name") String name) throws NotFoundException {
 		return deleteMediaFile(req, context, folder1 + "/" + folder2, name);
 	}
 
 	@DELETE
 	@Path("/{folder1}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("name") String name) throws NotFoundException {
 		return deleteMediaFile(req, context, folder1, name);
 	}
 
 	@DELETE
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteMedia(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		return deleteMediaFile(req, context, null, name);
 	}

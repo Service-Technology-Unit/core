@@ -112,10 +112,12 @@ public class BatchJobTrendDataServlet extends ServletBase {
 		ResultSet rs = null;
 		try {
 			conn = dataSource.getConnection();
-			String sql = "select id, startDateTime from batchjobinstance where batchJobScheduleId=? and status='Completed' order by startDateTime desc limit ?";
+			String sql = "select top " + max + " id, startDateTime from batchjobinstance where batchJobScheduleId=? and status='Completed' order by startDateTime desc";
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, batchJobSchedule.getId());
-			ps.setInt(2, max);
+			if (log.isDebugEnabled()) {
+				log.debug("Max: " + max + "; ID: " + batchJobSchedule.getId() + "; SQL: " + sql);
+			}
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				if (instances == null) {

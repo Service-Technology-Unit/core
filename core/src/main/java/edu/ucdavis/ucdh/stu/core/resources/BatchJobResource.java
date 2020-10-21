@@ -34,7 +34,7 @@ public class BatchJobResource {
 
 	@GET
 	@Path("/{context}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public BatchJob getBatchJob(@PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		BatchJob batchJob = batchJobManager.findByContextAndName(context, name);
 		if (batchJob == null) {
@@ -48,7 +48,7 @@ public class BatchJobResource {
 	
 	@GET
 	@Path("/{context}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public List<BatchJob> getBatchJob(@PathParam("context") String context) throws NotFoundException {
 		List<BatchJob> batchJobs = batchJobManager.findByProperty("context", context);
 		if (batchJobs == null || batchJobs.size() == 0) {
@@ -62,7 +62,7 @@ public class BatchJobResource {
 	
 	@GET
 	@Path("/")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public List<BatchJob> getBatchJob() throws NotFoundException {
 		List<BatchJob> batchJobs = batchJobManager.findAll();
 		if (batchJobs == null || batchJobs.size() == 0) {
@@ -77,7 +77,7 @@ public class BatchJobResource {
 	@POST
 	@Path("/{context}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public BatchJob saveBatchJob(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("name") String name,
@@ -109,7 +109,7 @@ public class BatchJobResource {
 
 	@DELETE
 	@Path("/{context}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteBatchJob(@PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		BatchJob batchJob = batchJobManager.findByContextAndName(context, name);
 		if (batchJob == null) {

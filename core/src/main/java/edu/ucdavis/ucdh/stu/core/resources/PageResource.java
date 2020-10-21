@@ -33,42 +33,42 @@ public class PageResource {
 
 	@GET
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{folder5}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page getPage(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("folder3") String folder3, @PathParam("folder4") String folder4, @PathParam("folder5") String folder5, @PathParam("name") String name) throws NotFoundException {
 		return fetchPage(req, context, folder1 + "/" + folder2 + "/" + folder3 + "/" + folder4 + "/" + folder5 + "/" + name);
 	}
 
 	@GET
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page getPage(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("folder3") String folder3, @PathParam("folder4") String folder4, @PathParam("name") String name) throws NotFoundException {
 		return fetchPage(req, context, folder1 + "/" + folder2 + "/" + folder3 + "/" + folder4 + "/" + name);
 	}
 
 	@GET
 	@Path("/{folder1}/{folder2}/{folder3}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page getPage(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("folder3") String folder3, @PathParam("name") String name) throws NotFoundException {
 		return fetchPage(req, context, folder1 + "/" + folder2 + "/" + folder3 + "/" + name);
 	}
 
 	@GET
 	@Path("/{folder1}/{folder2}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page getPage(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("folder2") String folder2, @PathParam("name") String name) throws NotFoundException {
 		return fetchPage(req, context, folder1 + "/" + folder2 + "/" + name);
 	}
 
 	@GET
 	@Path("/{folder1}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page getPage(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("folder1") String folder1, @PathParam("name") String name) throws NotFoundException {
 		return fetchPage(req, context, folder1 + "/" + name);
 	}
 
 	@GET
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page getPage(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		return fetchPage(req, context, name);
 	}
@@ -86,7 +86,7 @@ public class PageResource {
 
 	@GET
 	@Path("/")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public List<Page> getPages(@Context HttpServletRequest req, @PathParam("context") String context) throws NotFoundException {
 		List<Page> pages = pageManager.findByProperty("context", context);
 		if (pages == null || pages.isEmpty()) {
@@ -101,7 +101,7 @@ public class PageResource {
 	@POST
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{folder5}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page savePage(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -120,7 +120,7 @@ public class PageResource {
 	@POST
 	@Path("/{folder1}/{folder2}/{folder3}/{folder4}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page savePage(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -138,7 +138,7 @@ public class PageResource {
 	@POST
 	@Path("/{folder1}/{folder2}/{folder3}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page savePage(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -155,7 +155,7 @@ public class PageResource {
 	@POST
 	@Path("/{folder1}/{folder2}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page savePage(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -171,7 +171,7 @@ public class PageResource {
 	@POST
 	@Path("/{folder1}/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page savePage(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("folder1") String folder1,
@@ -186,7 +186,7 @@ public class PageResource {
 	@POST
 	@Path("/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public Page savePage(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("name") String name,
@@ -231,7 +231,7 @@ public class PageResource {
 
 	@DELETE
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deletePage(@PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		Page page = pageManager.findByContextAndName(context, name);
 		if (page == null) {

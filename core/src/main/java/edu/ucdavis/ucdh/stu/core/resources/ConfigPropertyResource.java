@@ -31,7 +31,7 @@ public class ConfigPropertyResource {
 
 	@GET
 	@Path("/")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public List<ConfigProperty> getConfigProperty(@PathParam("context") String context) throws NotFoundException {
 		List<ConfigProperty> configProperties = configPropertyManager.findByContext(context);
 		if (configProperties == null || configProperties.size() == 0) {
@@ -45,7 +45,7 @@ public class ConfigPropertyResource {
 
 	@GET
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public ConfigProperty getConfigProperty(@PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		ConfigProperty configProperty = configPropertyManager.findByContextAndPropertyName(context, name);
 		if (configProperty == null) {
@@ -57,7 +57,7 @@ public class ConfigPropertyResource {
 	@POST
 	@Path("/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public ConfigProperty saveConfigProperty(@PathParam("context") String context, @PathParam("name") String name, @FormParam("value") String value) {
 		ConfigProperty configProperty = configPropertyManager.findByContextAndPropertyName(context, name);
 
@@ -80,7 +80,7 @@ public class ConfigPropertyResource {
 
 	@DELETE
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteConfigProperty(@PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		ConfigProperty configProperty = configPropertyManager.findByContextAndPropertyName(context, name);
 		if (configProperty == null) {

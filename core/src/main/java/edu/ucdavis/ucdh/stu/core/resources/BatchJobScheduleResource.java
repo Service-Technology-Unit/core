@@ -37,7 +37,7 @@ public class BatchJobScheduleResource {
 	
 	@GET
 	@Path("/{context}/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public List<BatchJobSchedule> getBatchJobSchedule(@PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		List<BatchJobSchedule> batchJobSchedules = batchJobScheduleManager.findByContextAndName(context, name);
 		if (batchJobSchedules == null || batchJobSchedules.size() == 0) {
@@ -51,7 +51,7 @@ public class BatchJobScheduleResource {
 	
 	@GET
 	@Path("/{context}/{jobname}/{schedulename}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public BatchJobSchedule getBatchJobSchedule(@PathParam("context") String context,
 			@PathParam("jobname") String jobName, @PathParam("schedulename") String schlName) throws NotFoundException {
 		BatchJobSchedule batchJobSchedule = batchJobScheduleManager.findByContextJobSchedule(context, jobName, schlName);
@@ -66,7 +66,7 @@ public class BatchJobScheduleResource {
 	
 	@GET
 	@Path("/")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public List<BatchJobSchedule> getBatchJobSchedule() throws NotFoundException {
 		List<BatchJobSchedule> batchJobSchedules = batchJobScheduleManager.findAll();
 		if (batchJobSchedules == null || batchJobSchedules.size() == 0) {
@@ -81,7 +81,7 @@ public class BatchJobScheduleResource {
 	@POST
 	@Path("/{context}/{jobname}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public BatchJobSchedule createBatchJobSchedule(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("jobname") String jobName,
@@ -122,7 +122,7 @@ public class BatchJobScheduleResource {
 	@POST
 	@Path("/{context}/{jobname}/{schedulename}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public BatchJobSchedule saveBatchJobSchedule(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("jobname") String jobName, 
@@ -159,7 +159,7 @@ public class BatchJobScheduleResource {
 
 	@DELETE
 	@Path("/{context}/{jobname}/{schedulename}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteBatchJobSchedule(@PathParam("context") String context,
 			@PathParam("jobname") String jobName, 
 			@PathParam("schedulename") String schlName) throws NotFoundException {

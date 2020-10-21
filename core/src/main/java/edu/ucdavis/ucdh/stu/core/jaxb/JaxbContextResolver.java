@@ -14,7 +14,7 @@ import org.apache.commons.logging.LogFactory;
  * JAXB Context Resolver
  */
 @Provider
-@Produces("text/xml")
+@Produces("application/xml")
 public class JaxbContextResolver implements ContextResolver<Marshaller> {
 	private final static String XML_HEADERS = "com.sun.xml.internal.bind.xmlHeaders";
 	private Log log = LogFactory.getLog(getClass());
@@ -45,10 +45,11 @@ public class JaxbContextResolver implements ContextResolver<Marshaller> {
 	 * @param clazz the Class to be marshalled
 	 */
 	public Marshaller getContext(Class<?> clazz) {
+log.info("getContext(" + clazz + ")");
 		Marshaller marshaller = null;
 
 		String styleSheetUri = xslLocation + clazz.getSimpleName().toLowerCase() + ".xsl";
-log.info("styleSheetUri: \"" + this.xslLocation + "\".");
+log.info("styleSheetUri: \"" + styleSheetUri + "\".");
 		try {
 			marshaller = context.createMarshaller();
 			marshaller.setProperty(XML_HEADERS, "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheetUri + "\"?>");

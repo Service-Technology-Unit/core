@@ -38,7 +38,7 @@ public class MenuItemResource {
 
 	@GET
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public MenuItem getMenuItem(@Context HttpServletRequest req, @PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		MenuItem menuItem = menuItemManager.findByContextAndName(context, name);
 		if (menuItem == null) {
@@ -53,7 +53,7 @@ public class MenuItemResource {
 	@POST
 	@Path("/{name}")
 	@Consumes("application/x-www-form-urlencoded")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public MenuItem saveMenuItem(@Context HttpServletRequest req,
 			@PathParam("context") String context,
 			@PathParam("name") String name,
@@ -159,7 +159,7 @@ public class MenuItemResource {
 
 	@DELETE
 	@Path("/{name}")
-	@Produces("text/xml")
+	@Produces("application/xml")
 	public String deleteMenuItem(@PathParam("context") String context, @PathParam("name") String name) throws NotFoundException {
 		MenuItem menuItem = menuItemManager.findByContextAndName(context, name);
 		if (menuItem == null) {
